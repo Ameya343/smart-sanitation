@@ -9,9 +9,10 @@ import { FilterPanel } from '@/components/FilterPanel';
 import { NearbyAlternatives } from '@/components/NearbyAlternatives';
 import { GradeBadge } from '@/components/GradeBadge';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Filter, MapPin, LayoutDashboard, Navigation, Menu, X } from 'lucide-react';
+import { Search, Filter, MapPin, LayoutDashboard, Navigation, Menu, X, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
 
 const MAPS_API_KEY = 'AIzaSyDxgvUw_WKq0fXjBjCXCKSb8b5_wvDOn68';
 
@@ -42,6 +43,7 @@ const gradeMarkerColors: Record<string, string> = {
 export default function MapPage() {
   const { isLoaded } = useJsApiLoader({ id: 'google-map', googleMapsApiKey: MAPS_API_KEY });
 
+  const { signOut } = useAuth();
   const [selectedToilet, setSelectedToilet] = useState<ToiletFacility | null>(null);
   const [infoWindow, setInfoWindow] = useState<ToiletFacility | null>(null);
   const [showFilters, setShowFilters] = useState(false);
@@ -119,6 +121,9 @@ export default function MapPage() {
               <LayoutDashboard className="w-3.5 h-3.5" /> Dashboard
             </Button>
           </Link>
+          <Button size="sm" variant="secondary" className="text-xs gap-1 h-8" onClick={signOut}>
+            <LogOut className="w-3.5 h-3.5" /> Sign Out
+          </Button>
         </div>
       </header>
 
